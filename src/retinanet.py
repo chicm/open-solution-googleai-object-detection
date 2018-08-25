@@ -5,7 +5,7 @@ from torch.autograd import Variable
 from torchvision import models
 from math import sqrt
 import multiprocessing as mp
-
+import pdb
 from steppy.base import BaseTransformer
 
 
@@ -247,7 +247,7 @@ class RetinaLoss(nn.Module):
 
         mask = pos_neg.unsqueeze(2).expand_as(cls_preds)
         masked_cls_preds = cls_preds[mask].view(-1, self.num_classes)
-
+        #pdb.set_trace()
         loc_loss = F.smooth_l1_loss(masked_loc_preds, masked_loc_targets, size_average=False)
         cls_loss = self.focal_loss(masked_cls_preds, cls_targets[pos_neg])
 

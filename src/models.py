@@ -11,7 +11,7 @@ from .parallel import DataParallelCriterion, DataParallelModel as DataParallel
 from .callbacks import NeptuneMonitorDetection, ValidationMonitorDetection
 from .retinanet import RetinaNet, RetinaLoss
 
-
+import pdb
 class ModelParallel(Model):
     def fit(self, datagen, validation_datagen=None):
         self._initialize_model_weights()
@@ -23,7 +23,7 @@ class ModelParallel(Model):
 
         self.callbacks.set_params(self, validation_datagen=validation_datagen)
         self.callbacks.on_train_begin()
-
+        #pdb.set_trace()
         batch_gen, steps = datagen
         for epoch_id in range(self.training_config['epochs']):
             self.callbacks.on_epoch_begin()

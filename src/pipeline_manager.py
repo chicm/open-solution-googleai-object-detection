@@ -4,6 +4,7 @@ import shutil
 import pandas as pd
 import numpy as np
 import math
+import pdb
 
 from .pipeline_config import DESIRED_CLASS_SUBSET, ID_COLUMN, SEED, SOLUTION_CONFIG
 from .pipelines import PIPELINES
@@ -32,6 +33,7 @@ class PipelineManager:
 
 def train(pipeline_name, dev_mode):
     LOGGER.info('training')
+    #pdb.set_trace()
     if bool(PARAMS.clean_experiment_directory_before_training) and os.path.isdir(PARAMS.experiment_dir):
         shutil.rmtree(PARAMS.experiment_dir)
 
@@ -39,7 +41,7 @@ def train(pipeline_name, dev_mode):
     annotations_human_labels = pd.read_csv(PARAMS.annotations_human_labels_filepath)
     valid_ids_data = pd.read_csv(PARAMS.valid_ids_filepath)
 
-    if DESIRED_CLASS_SUBSET:
+    if False:#DESIRED_CLASS_SUBSET:
         LOGGER.info("Training on a reduced class subset: {}".format(DESIRED_CLASS_SUBSET))
         annotations = reduce_number_of_classes(annotations,
                                                DESIRED_CLASS_SUBSET,
@@ -82,6 +84,7 @@ def train(pipeline_name, dev_mode):
 
     pipeline = PIPELINES[pipeline_name]['train'](SOLUTION_CONFIG)
     pipeline.clean_cache()
+    #pdb.set_trace()
     pipeline.fit_transform(data)
     pipeline.clean_cache()
 
@@ -92,7 +95,7 @@ def evaluate(pipeline_name, dev_mode, chunk_size):
     annotations = pd.read_csv(PARAMS.annotations_filepath)
     annotations_human_labels = pd.read_csv(PARAMS.annotations_human_labels_filepath)
 
-    if DESIRED_CLASS_SUBSET:
+    if False: #DESIRED_CLASS_SUBSET:
         LOGGER.info("Evaluating on a reduced class subset: {}".format(DESIRED_CLASS_SUBSET))
         annotations = reduce_number_of_classes(annotations,
                                                DESIRED_CLASS_SUBSET,
@@ -148,10 +151,14 @@ def evaluate(pipeline_name, dev_mode, chunk_size):
 
 
 def predict(pipeline_name, dev_mode, submit_predictions, chunk_size):
-    LOGGER.info('predicting')
+    LOGGER.info('>>>>predicting')
 
     n_ids = 100 if dev_mode else None
     test_img_ids = get_img_ids_from_folder(PARAMS.test_imgs_dir, n_ids=n_ids)
+    print(len(test_img_ids))
+    print(test_img_ids[:10])
+    print('chunk:', chunk_size)
+    #pdb.set_trace()
 
     SOLUTION_CONFIG['loader']['dataset_params']['images_dir'] = PARAMS.test_imgs_dir
 
@@ -165,8 +172,8 @@ def predict(pipeline_name, dev_mode, submit_predictions, chunk_size):
     LOGGER.info('submission saved to {}'.format(submission_filepath))
     LOGGER.info('submission head \n\n{}'.format(prediction.head()))
 
-    if submit_predictions:
-        make_submission(submission_filepath)
+    #if submit_predictions:
+    #    make_submission(submission_filepath)
 
 
 def make_submission(submission_filepath):

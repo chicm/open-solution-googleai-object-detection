@@ -38,9 +38,11 @@ class ImageDetectionDataset(Dataset):
         self.image_transform = image_transform
 
     def __len__(self):
+        #print('>>>len: ', len(self.ids))
         return len(self.ids)
 
     def __getitem__(self, index):
+        #print('>>>', self.ids[index])
         Xi = self.load_from_disk(index)
 
         Xi = self.image_transform(Xi)
@@ -120,7 +122,7 @@ class ImageDetectionLoader(BaseTransformer):
         self.target_encoder = DataEncoder(**self.dataset_params.data_encoder)
         self.dataset = ImageDetectionDataset
 
-        self.image_transform = transforms.Compose([transforms.Resize((self.dataset_params.h, self.dataset_params.w)),
+        self.image_transform = transforms.Compose([#transforms.Resize((self.dataset_params.h, self.dataset_params.w)),
                                                    transforms.ToTensor(),
                                                    transforms.Normalize(mean=MEAN, std=STD),
                                                    ])
