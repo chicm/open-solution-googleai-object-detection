@@ -23,21 +23,21 @@ exclude:
 
 parameters:
 # Data Paths
-  train_imgs_dir: /media/chicm/NVME/open-images/224
-  test_imgs_dir: /media/chicm/NVME/detect/224
-  annotations_filepath: /media/chicm/NVME/open-images/challenge-2018-train-annotations-bbox.csv
-  annotations_human_labels_filepath: /media/chicm/NVME/open-images/challenge-2018-train-annotations-human-imagelabels.csv
-  bbox_hierarchy_filepath: /media/chicm/NVME/open-images/bbox_labels_500_hierarchy.json
-  class_mappings_filepath: /media/chicm/NVME/open-images/challenge-2018-class-descriptions-500.csv
-  valid_ids_filepath: /media/chicm/NVME/open-images/challenge-2018-image-ids-valset-od.csv
-  sample_submission: /media/chicm/NVME/detect/sample_submission.csv
+  train_imgs_dir: /mnt/chicm/data/train/224
+  test_imgs_dir: /mnt/chicm/data/test/224
+  annotations_filepath: /mnt/chicm/data/annotations/challenge-2018-train-annotations-bbox.csv
+  annotations_human_labels_filepath: /mnt/chicm/data/annotations/challenge-2018-train-annotations-human-imagelabels.csv
+  bbox_hierarchy_filepath: /mnt/chicm/data/annotations/bbox_labels_500_hierarchy.json
+  class_mappings_filepath: /mnt/chicm/data/annotations/challenge-2018-class-descriptions-500.csv
+  valid_ids_filepath: /mnt/chicm/data/annotations/challenge-2018-image-ids-valset-od.csv
+  sample_submission: /mnt/chicm/data/test/sample_submission.csv
   #experiment_dir:  /home/chicm/ml/kaggle/open-solution-googleai-object-detection/experiment
-  experiment_dir: /media/chicm/NVME/experiment
+  experiment_dir: ./experiment
   clone_experiment_dir_from: '' #When running eval specify this as for example /input/GAI-14/output/experiment
 
   # Execution
   clean_experiment_directory_before_training: 0
-  num_workers: 4
+  num_workers: 16
   num_threads: 4
   load_in_memory: 0
   pin_memory: 1
@@ -69,8 +69,8 @@ parameters:
 
   # Training schedule
   epochs_nr: 10
-  batch_size_train: 8
-  batch_size_inference: 128
+  batch_size_train: 256
+  batch_size_inference: 1024
   lr: 0.0001
   momentum: 0.9
   gamma: 1.0

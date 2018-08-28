@@ -32,7 +32,7 @@ def evaluate(pipeline_name, dev_mode, chunk_size):
 @click.option('-c', '--chunk_size', help='size of the chunks to run prediction on', type=int, default=None,
               required=False)
 def predict(pipeline_name, dev_mode, submit_predictions, chunk_size):
-    pipeline_manager.predict(pipeline_name, dev_mode, False, 1000)
+    pipeline_manager.predict(pipeline_name, dev_mode, False, 10000)
 
 
 @main.command()
