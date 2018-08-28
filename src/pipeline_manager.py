@@ -6,7 +6,7 @@ import numpy as np
 import math
 import pdb
 
-from .pipeline_config import DESIRED_CLASS_SUBSET, ID_COLUMN, SEED, SOLUTION_CONFIG
+from .pipeline_config import ID_COLUMN, SEED, SOLUTION_CONFIG
 from .pipelines import PIPELINES
 from .utils import NeptuneContext, competition_metric_evaluation, generate_list_chunks, get_img_ids_from_folder, \
     init_logger, reduce_number_of_classes, set_seed, submission_formatting, add_missing_image_ids
@@ -143,7 +143,7 @@ def evaluate(pipeline_name, dev_mode, chunk_size):
                                                                prediction_filepath=prediction_filepath,
                                                                label_hierarchy_filepath=PARAMS.bbox_hierarchy_filepath,
                                                                metrics_filepath=metrics_filepath,
-                                                               list_of_desired_classes=DESIRED_CLASS_SUBSET,
+                                                               #list_of_desired_classes=DESIRED_CLASS_SUBSET,
                                                                mappings_filepath=PARAMS.class_mappings_filepath
                                                                )
         LOGGER.info('MAP on validation is {}'.format(mean_average_precision))

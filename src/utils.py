@@ -345,6 +345,8 @@ def submission_formatting(submission):
 
 
 def calculate_map(metrics_filepath, list_of_desired_classes=None, mappings_file=None):
+    if list_of_desired_classes:
+        raise ValueError('list_of_desired_classes not none')
     with open(metrics_filepath) as f:
         metrics = f.read().splitlines()
 
@@ -390,7 +392,7 @@ def reduce_number_of_classes(annotations_df, list_of_desired_classes, mappings_f
     Returns:
 
     """
-
+    raise ValueError('reduce_number_of_classes should not be called')
     codes2names, names2codes = get_class_mappings(mappings_file)
     if not all([cls.startswith('/') for cls in list_of_desired_classes]):
         list_of_desired_classes = [names2codes.get(cls_name, 'notfound') for cls_name in list_of_desired_classes]
